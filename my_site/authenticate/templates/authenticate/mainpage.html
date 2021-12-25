@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="{% static '/css/mainpage.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+
+   <!-- <div class="container-fluid">
+     <div class="col-sm-18 ">
+    <nav class="navbar navbar-dark bg-dark">
+      <form class="container-fluid justify-content-start">
+       <button class="btn btn-primary me-2" href="{% url 'logout' %}" type="button">Log Out</button>
+         <button class="btn btn-sm btn-outline-secondary" href="{% url 'logout' %}" type="button">Log Out</button> 
+      </form>
+    </nav>
+     </div>
+  </div>    -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'home'  %}">My Calculator</a>
+    <a class="navbar-brand" href="{% url 'logout'  %}">Log Out</a>
+  </nav>    
+
+
+
+    <section id="first">
+      <div class="container-fluid">
+        <div class="col-sm-15 header">
+          
+          <!-- <img src="https://images.app.goo.gl/7Jz1mczyfHkFAobbA" /> -->
+          <i class="fa fa-calculator" style="font-size:48px;color:black"></i>
+          MY CAL-CUL-ATER 
+          <i class="fa fa-calculator" style="font-size:48px;color:black"></i>
+
+        </div>
+      </div>
+    </section>
+    <div class="row">
+      <div class="col-md-6" style="margin: 0 auto;">
+        {%if error%}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Invalid Expression!</strong> 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {%else%}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>You get your answer!</strong> 
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {%endif%}
+      </div>
+    </div>
+
+   
+
+    <section id="second">
+      <form class="" action="calculation" method="post">
+        {% csrf_token %}
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-2 left">
+            <!-- left -->
+          </div>
+          <div class="col-sm-8 middle">
+            <!-- main -->
+            <div class="result">
+              <span id="ques">{{values}}</span>
+              <input type="text" name="values" id= "result" placeholder="0" value={{result}} >
+            </div>
+            <div class="keypad">
+              <div class="row">
+                <div class="col-sm-1">
+
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block spc_btn" id="left_small" onclick="insertTextInInputValue('(');">(</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block spc_btn" onclick="insertTextInInputValue(')');">)</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block spc_btn" onclick="insertTextInInputValue('%');">%</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block spc_btn" onclick="insertTextInInputValue('AC');">AC</button>
+                </div>
+                <div class="col-sm-1">
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-1">
+
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block num_btn" onclick="insertTextInInputValue(7);">7</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block num_btn" onclick="insertTextInInputValue(8);">8</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block num_btn" onclick="insertTextInInputValue(9);">9</button>
+                </div>
+                <div class="col-sm-2">
+                   <button type="button" class="btn btn-block spc_btn" onclick="insertTextInInputValue('&divide');">&#247;</button>
+                </div>
+                <div class="col-sm-1">
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-1">
+
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block num_btn" onclick="insertTextInInputValue(4);">4</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block num_btn" onclick="insertTextInInputValue(5);">5</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block num_btn" onclick="insertTextInInputValue(6);">6</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block spc_btn" onclick="insertTextInInputValue('x');">&#215;</button>
+                </div>
+                <div class="col-sm-1">
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-1">
+
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block num_btn" onclick="insertTextInInputValue(1);">1</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block num_btn" onclick="insertTextInInputValue(2);">2</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block num_btn" onclick="insertTextInInputValue(3);">3</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block spc_btn" onclick="insertTextInInputValue('-');">-</button>
+                </div>
+                <div class="col-sm-1">
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-1">
+
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block num_btn" onclick="insertTextInInputValue(0);">0</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block spc_btn" onclick="insertTextInInputValue('.');">.</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="submit" class="btn btn-block btn-primary equal_btn">=</button>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" class="btn btn-block spc_btn" onclick="insertTextInInputValue('+');">+</button>
+                </div>
+                <div class="col-sm-1">
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2 right">
+            <!-- right -->
+          </div>
+        </div>
+      </div>
+      </form>
+    </section>
+
+  </body>
+  <script type="text/javascript">
+  // var theTotal = 0;
+  // $('#1').click(function(){
+  // $('#result').val(1);
+  // });
+  function insertTextInInputValue(buttonValueIs){
+            if (buttonValueIs == "AC")
+            {
+              $('#ques').text('Ans : 0');
+              $('#result').val(0);
+            }
+            else {
+              var inputElementIs = document.getElementById("result");
+              inputElementIs.value =  inputElementIs.value + buttonValueIs;
+              $('#result').val(inputElementIs.value);
+            }
+        }
+
+// $('#tussenstand').val("Total: "+theTotal);
+  </script>
+</html>

@@ -1,0 +1,43 @@
+
+{% extends 'authenticate/base.html' %}
+
+{% block content %}
+
+
+
+
+<!-- <h1> Home page</h1> -->
+  
+<!-- Hero section -->
+<section class="bg-light" id="features">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 order-2 order-lg-1">
+				<h1>Welcome To My Calculator App</h1>
+				{% if user.is_authenticated %}
+				<p class="lead">
+					<h3>Welcome {{user.first_name}} {{ user.last_name}}</h3>
+				</p>
+				<p class="lead">
+					<h4>Username: {{user.username}}</h4>
+					<h4>Email: {{user.email}}</h4>
+				</p>
+				<p>
+					<a href="{%url 'mainpage'%}" class="btn btn-danger shadow mr-2">Calculate Now</a>
+					<!-- <a  href="{% url 'mainpage'  %}" style="color: white;
+							text-decoration: none">Calculate Now</a> -->
+<!-- 						<a href="#" class="btn btn-outline-danger">Responsive Web Design</a> -->
+				</p>
+				{% endif %}	
+			</div>
+			<div class="col-lg-6 order-2 order-lg-2">
+				<img src="https://i.ibb.co/xCqpJS4/92690676-2844554128998890-1025259172305829888-n.jpg" alt="..." class="img-fluid" />
+<!-- 					https://i.ibb.co/WknCsxz/calculator.png -->
+			</div>
+		</div>
+	</div>
+</section>
+
+	 
+
+{% endblock %}
